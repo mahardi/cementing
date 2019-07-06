@@ -34,6 +34,25 @@
 		<div class="row">
 			<div class="col-md-12 order-md-1">
 				<form class="calculate" validate>
+					<div class="row"
+						style="padding: 20px; background-color:rgba(122, 122, 122, 0.075); border-radius:5px">
+						<label for="excess" class="col col-form-label" style="font-weight:700">Excess</label>
+						<!-- Example single danger button -->
+						<div class="col">
+							<select id="excess" style="width: 100%; height: 100%">
+								<option value="0.25">25%</option>
+								<option value="0.50">50%</option>
+								<option value="0.75">75%</option>
+								<option value="1">100%</option>
+								<option value="1.25">125%</option>
+								<option value="1.50">150%</option>
+								<option value="1.75">175%</option>
+								<option value="2">200%</option>
+							</select>
+						</div>
+
+
+					</div>
 					<div class="row">
 						<div class="col-md-4 equation">
 							<h4 class="mb-3">V.cas - cas (Lead)</h4>
@@ -159,6 +178,9 @@
 										placeholder="cuft/sack">
 								</div>
 							</div>
+							<div class="row var">
+
+							</div>
 						</div>
 						<div class="col-md-12 equation container-parent">
 							<div class="container-child">
@@ -215,6 +237,9 @@
 							//Constant for ketetapan
 							const k = 0.005454;
 
+							//Excess
+							var excess = parseFloat(document.getElementById('excess').value);
+
 							//Equation 1 variable
 							var ID1 = parseFloat(document.getElementById('ID1').value);
 							var OD1 = parseFloat(document.getElementById('OD1').value);
@@ -262,10 +287,10 @@
 							arr.push(TS6);
 
 							var P1 = (Math.pow(ID1, 2) - Math.pow(OD1, 2)) * k * L1;
-							var P21 = (Math.pow(OH2, 2) - Math.pow(OD2, 2)) * k * L2 * 1.5;
-							var P22 = (Math.pow(OH3, 2) - Math.pow(OD3, 2)) * k * L3 * 1.5;
+							var P21 = (Math.pow(OH2, 2) - Math.pow(OD2, 2)) * k * L2 * (excess + 1);
+							var P22 = (Math.pow(OH3, 2) - Math.pow(OD3, 2)) * k * L3 * (excess + 1);
 							var P3 = (Math.pow(ID4, 2)) * k * L4;
-							var P4 = (Math.pow(OH5, 2)) * k * L5 * 1.5;
+							var P4 = (Math.pow(OH5, 2)) * k * L5 * (excess + 1);
 							var P5 = P1 + P21;
 							var P6 = P22 + P3 + P4;
 							var P7 = P5 + P6;
@@ -288,7 +313,7 @@
 							document.getElementById("tail-result").innerHTML = P9.toLocaleString() + " sack";
 						}, false);
 						form.addEventListener('reset', function (event) {
-
+							//Reset form
 						}, false);
 					});
 				}, false);
