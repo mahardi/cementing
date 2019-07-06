@@ -143,7 +143,24 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-4 equation container-parent">
+						<div class="col-md-4 equation">
+							<h4 class="mb-3">Yield Lead/Tail Slurry</h4>
+							<div class="row var">
+								<label for="LS6" class="col col-form-label">Y. Lead Slurry</label>
+								<div class="col">
+									<input type="number" min="1" step="0.0001" required class="form-control" id="LS6"
+										placeholder="cuft/sack">
+								</div>
+							</div>
+							<div class="row var">
+								<label for="TS6" class="col col-form-label">Y. Tail Slurry</label>
+								<div class="col">
+									<input type="number" min="1" step="0.0001" required class="form-control" id="TS6"
+										placeholder="cuft/sack">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12 equation container-parent">
 							<div class="container-child">
 								<button class="pure-material-button-contained" type="submit">Calculate</button>
 								<button class="pure-material-button-contained" type="reset"
@@ -221,6 +238,13 @@
 							var OH5 = parseFloat(document.getElementById('OH5').value);
 							var L5 = parseFloat(document.getElementById('L5').value);
 
+							//Equation 8 variable
+							var LS6 = parseFloat(document.getElementById('LS6').value);
+
+							//Equation 9 variable
+							var TS6 = parseFloat(document.getElementById('TS6').value);
+
+
 							arr.push(ID1);
 							arr.push(OD1);
 							arr.push(L1);
@@ -234,6 +258,8 @@
 							arr.push(L4);
 							arr.push(OH5);
 							arr.push(L5);
+							arr.push(LS6);
+							arr.push(TS6);
 
 							var P1 = (Math.pow(ID1, 2) - Math.pow(OD1, 2)) * k * L1;
 							var P21 = (Math.pow(OH2, 2) - Math.pow(OD2, 2)) * k * L2 * 1.5;
@@ -243,9 +269,10 @@
 							var P5 = P1 + P21;
 							var P6 = P22 + P3 + P4;
 							var P7 = P5 + P6;
-							var P8 = P5 / 2.280;
-							var P9 = P6 / 1.620;
+							var P8 = P5 / LS6;
+							var P9 = P6 / TS6;
 
+							console.log('variable: ', arr);
 							console.log('P1: ', P1);
 							console.log('P2.1: ', P21);
 							console.log('P2.2: ', P22);
