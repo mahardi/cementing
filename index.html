@@ -10,7 +10,6 @@
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
 
-	<!-- Script Source -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
@@ -20,7 +19,6 @@
 		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 		crossorigin="anonymous"></script>
 	<script src="https://use.fontawesome.com/releases/v5.5.0/js/all.js"></script>
-	<!-- End of Script Source -->
 </head>
 
 <body class="bg-light">
@@ -37,7 +35,6 @@
 					<div class="row"
 						style="padding: 20px; background-color:rgba(122, 122, 122, 0.075); border-radius:5px">
 						<label for="excess" class="col col-form-label" style="font-weight:700">Excess</label>
-						<!-- Example single danger button -->
 						<div class="col">
 							<select id="excess" style="width: 100%; height: 100%">
 								<option value="0.25">25%</option>
@@ -211,81 +208,48 @@
 		</footer>
 	</div>
 
-	<!-- Bootstrap core JavaScript
-    ================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
 		crossorigin="anonymous"></script>
 	<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
 
 	<script>
-			// Example starter JavaScript for disabling form submissions if there are invalid fields
 			(function () {
 				'use strict';
-
 				window.addEventListener('load', function () {
-					// Fetch all the forms we want to apply custom Bootstrap validation styles to
 					var forms = document.getElementsByClassName('calculate');
-
 					var validation = Array.prototype.filter.call(forms, function (form) {
-						form.addEventListener('submit', function (event) {
-							event.preventDefault();
-							event.stopPropagation();
-							var arr = [];
+						form.addEventListener('submit', function (e) {
+							e.preventDefault();
+							e.stopPropagation();
 
-							//Constant for ketetapan
 							const k = 0.005454;
 
-							//Excess
 							var excess = parseFloat(document.getElementById('excess').value);
 
-							//Equation 1 variable
 							var ID1 = parseFloat(document.getElementById('ID1').value);
 							var OD1 = parseFloat(document.getElementById('OD1').value);
 							var L1 = parseFloat(document.getElementById('L1').value);
 
-							//Equation 2.1 variable
 							var OH2 = parseFloat(document.getElementById('OH2').value);
 							var OD2 = parseFloat(document.getElementById('OD2').value);
 							var L2 = parseFloat(document.getElementById('L2').value);
 
-							//Equation 2.2 variable
 							var OH3 = parseFloat(document.getElementById('OH3').value);
 							var OD3 = parseFloat(document.getElementById('OD3').value);
 							var L3 = parseFloat(document.getElementById('L3').value);
 
-							//Equation 3 variable
 							var ID4 = parseFloat(document.getElementById('ID4').value);
 							var L4 = parseFloat(document.getElementById('L4').value);
 
-							//Equation 4 variable
 							var OH5 = parseFloat(document.getElementById('OH5').value);
 							var L5 = parseFloat(document.getElementById('L5').value);
 
-							//Equation 8 variable
 							var LS6 = parseFloat(document.getElementById('LS6').value);
 
-							//Equation 9 variable
 							var TS6 = parseFloat(document.getElementById('TS6').value);
 
-
-							arr.push(ID1);
-							arr.push(OD1);
-							arr.push(L1);
-							arr.push(OH2);
-							arr.push(OD2);
-							arr.push(L2);
-							arr.push(OH3);
-							arr.push(OD3);
-							arr.push(L3);
-							arr.push(ID4);
-							arr.push(L4);
-							arr.push(OH5);
-							arr.push(L5);
-							arr.push(LS6);
-							arr.push(TS6);
-
+              // magical equation
 							var P1 = (Math.pow(ID1, 2) - Math.pow(OD1, 2)) * k * L1;
 							var P21 = (Math.pow(OH2, 2) - Math.pow(OD2, 2)) * k * L2 * (excess + 1);
 							var P22 = (Math.pow(OH3, 2) - Math.pow(OD3, 2)) * k * L3 * (excess + 1);
@@ -297,22 +261,10 @@
 							var P8 = P5 / LS6;
 							var P9 = P6 / TS6;
 
-							console.log('variable: ', arr);
-							console.log('P1: ', P1);
-							console.log('P2.1: ', P21);
-							console.log('P2.2: ', P22);
-							console.log('P3: ', P3);
-							console.log('P4: ', P4);
-							console.log('P5: ', P5);
-							console.log('P6: ', P6);
-							console.log('P7: ', P7);
-							console.log('P8: ', P8);
-							console.log('P9: ', P9);
-
 							document.getElementById("lead-result").innerHTML = P8.toLocaleString() + " sack";
 							document.getElementById("tail-result").innerHTML = P9.toLocaleString() + " sack";
 						}, false);
-						form.addEventListener('reset', function (event) {
+						form.addEventListener('reset', function (e) {
 							//Reset form
 						}, false);
 					});
